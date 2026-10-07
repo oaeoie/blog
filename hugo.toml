@@ -38,6 +38,8 @@ summaryLength = 40
 
 [markup]
   [markup.goldmark]
+    [markup.goldmark.extensions]
+      typographer = false
     [markup.goldmark.renderer]
       unsafe = true
   [markup.highlight]
