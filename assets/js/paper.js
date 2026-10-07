@@ -1,4 +1,4 @@
-/* retro-paper — 카운터 · 박수 · 테마 · 목차 · 맨 위로 */
+/* retro-paper — 테마 · 목차 · 맨 위로 */
 (function () {
   'use strict';
 
@@ -12,45 +12,6 @@
   }
   var tbtn = document.getElementById('theme-btn');
   if (tbtn) tbtn.addEventListener('click', toggleTheme);
-
-  /* ---------- 방문자 카운터 ---------- */
-  function bump(key, el, start) {
-    var n = 0;
-    try { n = parseInt(localStorage.getItem(key) || '0', 10) || 0; } catch (e) {}
-    n += 1;
-    try { localStorage.setItem(key, String(n)); } catch (e) {}
-    if (el) el.textContent = String(start + n - 1);
-    return n;
-  }
-  var hitsEl = document.getElementById('hits');
-  var kiriEl = document.getElementById('kiri');
-  if (hitsEl) {
-    var hits = bump('paper:hits', hitsEl, 1);
-    if (kiriEl) kiriEl.textContent = String(1 + Math.floor(hits / 10));
-  }
-
-  /* ---------- 박수 ---------- */
-  var c1 = 0;
-  try { c1 = parseInt(localStorage.getItem('paper:clap') || '0', 10) || 0; } catch (e) {}
-  var e1 = document.getElementById('clapCount');
-  var e2 = document.getElementById('clapCount2');
-  if (e1) e1.textContent = String(c1);
-  if (e2) e2.textContent = String(c1);
-
-  function clap(btn) {
-    c1 += 1;
-    try { localStorage.setItem('paper:clap', String(c1)); } catch (e) {}
-    if (e1) e1.textContent = String(c1);
-    if (e2) e2.textContent = String(c1);
-    if (btn) {
-      btn.style.transform = 'translate(2px,2px)';
-      setTimeout(function () { btn.style.transform = ''; }, 160);
-    }
-  }
-  ['clapBtn', 'clapBtn2'].forEach(function (id) {
-    var b = document.getElementById(id);
-    if (b) b.addEventListener('click', function () { clap(b); });
-  });
 
   /* ---------- 목차 만들기 ---------- */
   function buildToc() {

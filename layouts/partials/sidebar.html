@@ -35,21 +35,4 @@
         </ul>
     </div>
 
-    {{ if site.Params.showCounter }}
-    <div class="box">
-        <h2 class="box-head pink">COUNTER / 카운터</h2>
-        <div class="counter">
-            <div class="num">0000<span id="kiri">1</span></div>
-            <div class="counter-sub">니가 <b id="hits">1</b>번째 방문자다요</div>
-        </div>
-    </div>
-    {{ end }}
-
-    {{ if site.Params.showClap }}
-    <div class="box">
-        <h2 class="box-head">박수 / CLAP</h2>
-        <button class="clap" id="clapBtn" type="button">박수 치기 (<span id="clapCount">0</span>)</button>
-        <div class="clap-sub">누른 횟수는 이 브라우저에만 기억된다요</div>
-    </div>
-    {{ end }}
 </aside>

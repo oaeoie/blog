@@ -23,8 +23,6 @@ summaryLength = 40
   profileHome = "\uc774\ubd88"
   profileLikes = "\uac8c\uc784, \uc560\ub2c8\uba54\uc774\uc158"
   profileDislikes = "\uae00\uc4e8"
-  showCounter = true
-  showClap = true
 
 [[menus.main]]
   name = "Home"
