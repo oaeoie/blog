@@ -19,3 +19,4 @@ hugo --minify          # public/ 에 결과물
 ```bash
 hugo new content posts/새-글.md
 ```
+변경 만들기
