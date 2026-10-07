@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="ko" data-search-index="{{ "index.json" | relURL }}">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>{{ if .IsHome }}{{ site.Title }}{{ else }}{{ .Title }} · {{ site.Title }}{{ end }}</title>
+{{ with or .Description site.Params.description }}<meta name="description" content="{{ . }}">{{ end }}
+<meta property="og:title" content="{{ .Title }}">
+<meta property="og:type" content="{{ if .IsPage }}article{{ else }}website{{ end }}">
+<meta property="og:url" content="{{ .Permalink }}">
+{{ with site.Params.description }}<meta property="og:description" content="{{ . }}">{{ end }}
+
+{{- /* 테마 깜빡임 방지: 저장된 테마를 먼저 적용 */ -}}
+<script>
+  (function () {
+    try {
+      var saved = localStorage.getItem('paper-theme');
+      if (saved) document.documentElement.setAttribute('data-theme', saved);
+    } catch (e) {}
+    document.documentElement.classList.add('has-js');
+  })();
+</script>
+
+{{ partial "head/css.html" . }}
+{{ partial "head/mathjax.html" . }}
+</head>
+<body>
+
+    <div class="bg" aria-hidden="true"></div>
+
+    {{ partial "site-header.html" . }}
+
+    <div class="wrap">
+        {{ block "main" . }}{{ end }}
+    </div>
+
+    {{ partial "site-footer.html" . }}
+
+    {{ partial "head/js.html" . }}
+</body>
+</html>

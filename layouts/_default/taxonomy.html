@@ -1,0 +1,20 @@
+{{ define "main" }}
+
+<header class="archive-head">
+    <span class="archive-kicker">{{ block "kicker" . }}글 목록{{ end }}</span>
+    <h1 class="archive-title">{{ if .IsHome }}{{ site.Title }}{{ else }}{{ .Title }}{{ end }}</h1>
+    {{ with .Description }}<p class="archive-desc">{{ . }}</p>{{ end }}
+    <div class="archive-meta">{{ len .Pages }}개</div>
+</header>
+
+<section class="feed-section">
+    <div class="feed">
+        {{ range .Pages }}
+            {{ partial "post-card.html" . }}
+        {{ else }}
+            <p class="catlist-empty">아직 글이 없다요…</p>
+        {{ end }}
+    </div>
+</section>
+
+{{ end }}

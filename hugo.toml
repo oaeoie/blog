@@ -1,0 +1,56 @@
+baseURL = "https://oaeoie.github.io/blog/"
+languageCode = "ko"
+locale = "ko"
+defaultContentLanguage = "ko"
+title = "verbum"
+enableRobotsTXT = true
+timeZone = "Asia/Seoul"
+hasCJKLanguage = true
+paginate = 8
+summaryLength = 40
+
+[params]
+  description = "인터넷 구석의 작은 개인 블로그"
+  author = "Jang Jaeseong"
+  tagline = "여기는 인터넷 구석의 작은 개인 블로그다요. 매일 대충 갱신중."
+  showMarquee = true
+  marqueeText = "\u25c6 \uc0c8 \uae00 \uc62c\ub838\ub2e4\uc694 \u25c6 \ubc15\uc218 \ub2f5\ub840\ub294 \ub313\uae00\ucc3d\uc5d0\uc11c \u25c6 \ub9c1\ud06c \ud504\ub9ac\ub2e4\uc694 \u25c6 \ud0a4\ub9ac\ubc18 0000001 \ubc1f\uc558\ub2e4\uc694! \u25c6 \uc0c1\ud638\ub9c1\ud06c \ubaa8\uc9d1\uc911 \u25c6"
+  stampText = "\u5de5\u4e8b\u4e2d"
+  stampSub = "STILL BUILDING"
+  footerNote = "\uc804\uc7ac\ub294 \uba4b\ub300\ub85c \ud558\uc9c0 \ub9c8\ub77c\uc694"
+  profileHandle = "Jang Jaeseong"
+  profileJob = "\uac1c\ubc31\uc218"
+  profileHome = "\uc774\ubd88"
+  profileLikes = "\uac8c\uc784, \uc560\ub2c8\uba54\uc774\uc158"
+  profileDislikes = "\uae00\uc4e8"
+  showCounter = true
+  showClap = true
+
+[[menus.main]]
+  name = "Home"
+  pageRef = "/"
+  weight = 10
+
+[[menus.main]]
+  name = "About"
+  pageRef = "/about"
+  weight = 20
+
+[taxonomies]
+  tag = "tags"
+
+[markup]
+  [markup.goldmark]
+    [markup.goldmark.renderer]
+      unsafe = true
+  [markup.highlight]
+    noClasses = false
+    lineNos = false
+    style = "monokai"
+  [markup.tableOfContents]
+    startLevel = 2
+    endLevel = 3
+
+[outputs]
+  home = ["HTML", "RSS", "JSON"]
+  section = ["HTML", "RSS"]

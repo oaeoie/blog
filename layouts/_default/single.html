@@ -1,0 +1,102 @@
+{{ define "main" }}
+{{ if eq .Section "posts" }}
+
+<article class="post">
+    <header class="post-head">
+        <nav class="crumb" aria-label="breadcrumb">
+            <a href="{{ site.Home.RelPermalink }}">홈</a>
+            {{ with index .Params.tags 0 }}
+                <span class="crumb-sep">›</span><a href="{{ "tags/" | relURL }}{{ . | urlize }}/">{{ . }}</a>
+            {{ end }}
+            <span class="crumb-sep">›</span><span class="crumb-cur">글</span>
+        </nav>
+
+        <h1 class="post-title">{{ .Title }}</h1>
+
+        {{ with .Description }}<p class="post-excerpt">{{ . }}</p>{{ end }}
+
+        <div class="meta">
+            <span class="meta-date">{{ .Date.Format "2006.01.02" }}</span>
+            <span class="meta-author">{{ or .Params.author site.Params.author }}</span>
+            <span class="meta-time">{{ .ReadingTime }}분</span>
+        </div>
+
+        {{ with .Params.feature_image }}
+        <figure class="post-hero">
+            <img class="post-hero-img" src="{{ . | relURL }}" alt="{{ $.Title }}">
+        </figure>
+        {{ end }}
+    </header>
+
+    <div class="toc-inline" id="toc-inline">
+        <div class="toc-inline-head">
+            <span class="toc-inline-title">☰ 목차 <small>INDEX</small></span>
+            <a class="toc-inline-top" href="#post-content">본문으로 ↓</a>
+        </div>
+        <nav class="toc" id="toc-inline-nav"></nav>
+        <p class="toc-empty" id="toc-inline-empty">목차로 뽑을 소제목이 없다요…</p>
+    </div>
+
+    <div class="content" id="post-content">
+        {{ .Content }}
+    </div>
+
+    <footer class="post-foot">
+        {{ with .Params.tags }}
+        <div class="post-tags">
+            {{ range . }}<a class="chip" href="{{ "tags/" | relURL }}{{ . | urlize }}/">#{{ . }}</a>{{ end }}
+        </div>
+        {{ end }}
+
+        <nav class="post-nav">
+            {{ with .PrevInSection }}
+                <a class="post-nav-item" href="{{ .RelPermalink }}">
+                    <span class="post-nav-label">← 이전 글</span>
+                    <span class="post-nav-title">{{ .Title }}</span>
+                </a>
+            {{ else }}
+                <span class="post-nav-item post-nav-empty">← 이전 글이 없다요</span>
+            {{ end }}
+            {{ with .NextInSection }}
+                <a class="post-nav-item post-nav-item-next" href="{{ .RelPermalink }}">
+                    <span class="post-nav-label">다음 글 →</span>
+                    <span class="post-nav-title">{{ .Title }}</span>
+                </a>
+            {{ else }}
+                <span class="post-nav-item post-nav-empty">다음 글이 없다요 →</span>
+            {{ end }}
+        </nav>
+
+        <div class="clapbox">
+            <div>
+                <b>이 글, 도움이 됐냐요?</b><br>
+                <span class="clapbox-sub">박수를 보내면 관리인이 좋아한다요.</span>
+            </div>
+            <button class="clap" id="clapBtn2" type="button">박수 (<span id="clapCount2">0</span>)</button>
+        </div>
+    </footer>
+</article>
+
+{{ else }}
+
+{{- /* 고정 페이지 (About 등) — 글 크롬 없이 제목 + 본문만 */ -}}
+<article class="post">
+    <header class="post-head">
+        <span class="archive-kicker">고정 페이지</span>
+        <h1 class="post-title">{{ .Title }}</h1>
+        {{ with .Description }}<p class="post-excerpt">{{ . }}</p>{{ end }}
+
+        {{ with .Params.feature_image }}
+        <figure class="post-hero">
+            <img class="post-hero-img" src="{{ . | relURL }}" alt="{{ $.Title }}">
+        </figure>
+        {{ end }}
+    </header>
+
+    <div class="content" id="post-content">
+        {{ .Content }}
+    </div>
+</article>
+
+{{ end }}
+{{ end }}

@@ -1,0 +1,36 @@
+<header class="banner-wrap">
+    <div class="banner">
+        <h1 class="banner-title">
+            ☆ミ <a href="{{ site.Home.RelPermalink }}"><span class="y">{{ site.Title }}</span></a> - <span class="nw">Observation Log</span> - ミ☆
+        </h1>
+        <p class="banner-sub">{{ site.Params.tagline }}</p>
+        <div class="stamp" aria-hidden="true">
+            <span class="stamp-pix">{{ site.Params.stampText }}</span>
+            <span class="stamp-sub">{{ site.Params.stampSub }}</span>
+        </div>
+    </div>
+
+    {{ if site.Params.showMarquee }}
+    <div class="ticker" aria-hidden="true">
+        <span>{{ site.Params.marqueeText }}</span>
+    </div>
+    {{ end }}
+
+    <nav class="topnav">
+        <ul>
+            {{ range site.Menus.main }}
+                <li><a href="{{ .URL | relURL }}">{{ .Name }}</a></li>
+            {{ end }}
+        </ul>
+        <button class="icon-btn search-btn" id="search-btn" type="button" aria-label="검색" aria-expanded="false" aria-controls="search-panel">⌕</button>
+        <button class="icon-btn theme-btn" id="theme-btn" type="button" aria-label="테마 전환">◐</button>
+    </nav>
+
+    <div class="search-panel" id="search-panel" hidden>
+        <div class="search-head">
+            <input class="search-input" id="search-input" type="search" placeholder="제목·본문에서 찾는다요…" aria-label="검색어">
+            <button class="search-close" id="search-close" type="button" aria-label="검색 닫기">✕</button>
+        </div>
+        <ul class="search-results" id="search-results"></ul>
+    </div>
+</header>

@@ -1,0 +1,55 @@
+<aside class="side">
+    <div class="box">
+        <h2 class="box-head pink">PROFILE / 프로필</h2>
+        <div class="prof">
+            <div class="mascot" role="img" aria-label="도트 마스코트"></div>
+            <dl>
+                <dt>핸들</dt><dd>{{ site.Params.profileHandle }}</dd>
+                <dt>직업</dt><dd>{{ site.Params.profileJob }}</dd>
+                <dt>거처</dt><dd>{{ site.Params.profileHome }}</dd>
+                <dt>좋아함</dt><dd>{{ site.Params.profileLikes }}</dd>
+                <dt>싫어함</dt><dd>{{ site.Params.profileDislikes }}</dd>
+            </dl>
+        </div>
+    </div>
+
+    <div class="box">
+        <h2 class="box-head">CATEGORY / 카테고리</h2>
+        <ul class="catlist">
+            {{ range $name, $taxonomy := site.Taxonomies.tags }}
+                <li><a href="{{ (site.GetPage (printf "/tags/%s" $name)).RelPermalink }}">{{ $name }}</a> ({{ len $taxonomy }})</li>
+            {{ else }}
+                <li class="catlist-empty">아직 카테고리가 없다요…</li>
+            {{ end }}
+        </ul>
+    </div>
+
+    <div class="box">
+        <h2 class="box-head">RECENT / 최신 글</h2>
+        <ul class="catlist">
+            {{ range first 5 (where site.RegularPages "Section" "posts") }}
+                <li><a href="{{ .RelPermalink }}">{{ .Title }}</a></li>
+            {{ else }}
+                <li class="catlist-empty">아직 글이 없다요…</li>
+            {{ end }}
+        </ul>
+    </div>
+
+    {{ if site.Params.showCounter }}
+    <div class="box">
+        <h2 class="box-head pink">COUNTER / 카운터</h2>
+        <div class="counter">
+            <div class="num">0000<span id="kiri">1</span></div>
+            <div class="counter-sub">니가 <b id="hits">1</b>번째 방문자다요</div>
+        </div>
+    </div>
+    {{ end }}
+
+    {{ if site.Params.showClap }}
+    <div class="box">
+        <h2 class="box-head">박수 / CLAP</h2>
+        <button class="clap" id="clapBtn" type="button">박수 치기 (<span id="clapCount">0</span>)</button>
+        <div class="clap-sub">누른 횟수는 이 브라우저에만 기억된다요</div>
+    </div>
+    {{ end }}
+</aside>

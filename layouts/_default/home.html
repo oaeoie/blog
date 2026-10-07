@@ -1,0 +1,30 @@
+{{ define "main" }}
+
+{{- /* ===================== 히어로 ===================== */ -}}
+<section class="hero">
+    <p class="hero-kicker">관측일지 · 개인 블로그</p>
+    <h2 class="hero-title">{{ site.Title }}</h2>
+    <div class="hero-rule"></div>
+    <p class="hero-sub">{{ site.Params.tagline }}</p>
+</section>
+
+{{- /* ===================== 글 목록 ===================== */ -}}
+{{ $pages := where site.RegularPages "Section" "posts" }}
+<section class="feed-section" id="feed">
+    <div class="feed-head">
+        <h2 class="section-title">최신 글</h2>
+        <span class="section-count">{{ len $pages }}개</span>
+    </div>
+
+    <div class="feed">
+        {{ range $pages }}
+            {{ partial "post-card.html" . }}
+        {{ else }}
+            <p class="catlist-empty">아직 글이 없다요…</p>
+        {{ end }}
+    </div>
+</section>
+
+{{ partial "sidebar.html" . }}
+
+{{ end }}

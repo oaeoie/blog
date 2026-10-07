@@ -1,0 +1,25 @@
+{{- /* 게시물 카드 (index / list / tag 공용) */ -}}
+<article class="card">
+    <a class="card-link" href="{{ .RelPermalink }}">
+        <header class="card-head">
+            <h2 class="card-title">{{ .Title }}</h2>
+            <div class="meta">
+                <span class="meta-date">{{ .Date.Format "2006.01.02" }}</span>
+                {{ with .Params.tags }}{{ range first 1 . }}<span class="meta-cat">{{ . }}</span>{{ end }}{{ end }}
+                <span class="meta-time">{{ .ReadingTime }}분</span>
+            </div>
+        </header>
+
+        {{ with .Params.feature_image }}
+        <figure class="card-thumb">
+            <img src="{{ . | relURL }}" alt="{{ $.Title }}" loading="lazy">
+        </figure>
+        {{ end }}
+
+        {{ with .Summary }}<p class="card-excerpt">{{ . | plainify | truncate 120 }}</p>{{ end }}
+
+        <footer class="card-foot">
+            <span class="card-more">더 읽기 →</span>
+        </footer>
+    </a>
+</article>

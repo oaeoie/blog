@@ -1,0 +1,15 @@
+{{ define "main" }}
+<section class="error-page">
+    <div class="error-emoji" aria-hidden="true">（´・ω・｀）</div>
+    <div class="error-code">404</div>
+    <h1 class="error-title">이 페이지는 없다요</h1>
+    <p class="error-text">
+        링크가 깨졌거나, 아직 안 만든 페이지다요.<br>
+        일단 홈으로 돌아가라요.
+    </p>
+    <div class="error-btns">
+        <a class="btn btn-primary" href="{{ site.Home.RelPermalink }}">홈으로 돌아가기</a>
+        <button class="btn btn-ghost" type="button" onclick="history.back()">이전 페이지로</button>
+    </div>
+</section>
+{{ end }}
