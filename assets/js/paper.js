@@ -14,8 +14,13 @@
   if (tbtn) tbtn.addEventListener('click', toggleTheme);
 
   /* ---------- 전광판 ---------- */
-  /* data/marquee.yaml 목록에서 매번 다른 문구를 뽑는다. 새로고침·페이지 이동마다 바뀐다. */
-  function rollMarquee() {
+  /* data/marquee.yaml 목록에서 무작위로 하나 뽑아, 칸 오른쪽 바깥 → 왼쪽 바깥까지 흘려보낸다.
+     이동 거리는 '칸 폭 + 글자 폭' 이므로 JS 로 실측해 --dist 에 박는다.
+     translateX(100%) 같은 퍼센트는 글자 '자기 폭' 기준이라 칸 폭이 안 들어가고,
+     그래서 글자가 칸 한가운데에서 툭 튀어나온 것처럼 보였다. */
+  var MS_PER_PX = 14;   /* 흐르는 속도 — 클수록 느리다 (약 70px/s) */
+
+  function runMarquee() {
     var box = document.querySelector('.ticker');
     var data = document.getElementById('marquee-data');
     if (!box || !data) return;
@@ -25,20 +30,26 @@
     var span = box.querySelector('span');
     if (!span) return;
 
-    var pick = Math.floor(Math.random() * list.length);
-    if (list.length > 1) {
-      try {
-        var n = (parseInt(sessionStorage.getItem('paper:marqueeN') || '0', 10) || 0) + 1;
-        sessionStorage.setItem('paper:marqueeN', String(n));
-        // 2번째마다 갈아끼운다 — 같은 문구가 연달아 뜨면 랜덤이 아닌 것처럼 보인다
-        if (n % 2 === 0) {
-          var last = parseInt(sessionStorage.getItem('paper:marqueeIdx') || '-1', 10);
-          if (pick === last) pick = (pick + 1) % list.length;
-        }
-      } catch (e) {}
-      try { sessionStorage.setItem('paper:marqueeIdx', String(pick)); } catch (e) {}
+    span.textContent = ' ' + list[Math.floor(Math.random() * list.length)] + ' ';
+
+    function fit() {
+      var dist = box.clientWidth + span.offsetWidth;
+      span.style.setProperty('--dist', (-dist) + 'px');
+      span.style.setProperty('--dur', (dist * MS_PER_PX / 1000) + 's');
+      span.classList.remove('rolling');
+      void span.offsetWidth;   /* 리플로우 강제 — 애니메이션을 처음부터 다시 시작시킨다 */
+      span.classList.add('rolling');
     }
-    span.textContent = ' ' + list[pick] + ' ';
+
+    /* 웹폰트가 늦게 붙으면 글자 폭이 달라져 거리 계산이 틀어진다 */
+    if (document.fonts && document.fonts.ready) {
+      document.fonts.ready.then(fit).catch(fit);
+    } else {
+      fit();
+    }
+
+    var t;
+    window.addEventListener('resize', function () { clearTimeout(t); t = setTimeout(fit, 200); }, { passive: true });
   }
 
   /* ---------- 목차 만들기 ---------- */
@@ -100,7 +111,7 @@
     }
   });
 
-  rollMarquee();
+  runMarquee();
 
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', buildToc);

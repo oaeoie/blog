@@ -2,7 +2,9 @@
     <div class="box">
         <h2 class="box-head pink">PROFILE / 프로필</h2>
         <div class="prof">
-            <div class="mascot" role="img" aria-label="도트 마스코트"></div>
+            {{ with site.Params.avatar }}
+                <img class="avatar" src="{{ . | relURL }}" alt="{{ site.Params.profileHandle }} 프로필 사진" width="48" height="48">
+            {{ end }}
             <dl>
                 <dt>핸들</dt><dd>{{ site.Params.profileHandle }}</dd>
                 <dt>직업</dt><dd>{{ site.Params.profileJob }}</dd>

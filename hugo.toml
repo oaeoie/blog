@@ -17,6 +17,7 @@ summaryLength = 40
   stampText = "\u5de5\u4e8b\u4e2d"
   stampSub = "STILL BUILDING"
   footerNote = "\uc804\uc7ac\ub294 \uba4b\ub300\ub85c \ud558\uc9c0 \ub9c8\ub77c\uc694"
+  avatar = "img/avatar.png"
   profileHandle = "oaeoie"
   profileJob = "\uac1c\ubc31\uc218"
   profileHome = "\uc774\ubd88"

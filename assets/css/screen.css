@@ -101,11 +101,19 @@ small{font-size:.85em}
   height:26px;overflow:hidden;border:2px solid var(--ink);
   background:var(--card);position:relative;margin-bottom:10px;
 }
+/* 왼쪽 100% = 칸 오른쪽 바깥에서 시작한다. 거리는 JS 가 --dist(px) 로 박아준다 —
+   translateX(100%) 같은 퍼센트는 '글자 자기 폭' 기준이라 칸 폭이 안 들어가고,
+   그래서 글자가 칸 한가운데에서 툭 나타났다. */
 .ticker span{
-  position:absolute;white-space:nowrap;font-size:13px;color:var(--pink-ink);
-  animation:slide 28s linear infinite;will-change:transform;
+  position:absolute;top:50%;left:100%;white-space:nowrap;font-size:13px;
+  color:var(--pink-ink);line-height:1;will-change:transform;
+  transform:translate(0,-50%);
 }
-@keyframes slide{from{transform:translateX(100%)}to{transform:translateX(-100%)}}
+.ticker span.rolling{animation:slide var(--dur,28s) linear infinite}
+@keyframes slide{
+  from{transform:translate(0,-50%)}
+  to{transform:translate(var(--dist,-100vw),-50%)}
+}
 
 .topnav{
   display:flex;flex-wrap:wrap;align-items:center;gap:6px;
@@ -393,7 +401,7 @@ html[data-theme="dark"] .btn-primary{color:#2a1c24}
   .clapbox{flex-direction:column;align-items:stretch}
 }
 @media (prefers-reduced-motion:reduce){
-  .ticker span{animation:none;transform:none;position:static;padding-left:6px}
+  .ticker span{animation:none;transform:none;position:static;top:auto;padding-left:6px}
 }
 
 
@@ -425,3 +433,12 @@ html[data-theme="dark"] .btn-primary{color:#2a1c24}
 .search-hit a:hover{text-decoration:none;color:var(--pink-ink)}
 .search-hit-title{display:block;font-size:14px}
 .search-hit-sub{display:block;font-size:12px;color:var(--ink-soft);overflow-wrap:anywhere}
+
+
+/* ============================================================
+   프로필 사진 (GitHub 아바타 · 자체 호스팅)
+   ============================================================ */
+.avatar{
+  width:48px;height:48px;flex:0 0 48px;object-fit:cover;
+  border:2px solid var(--line);background:var(--cream);
+}
