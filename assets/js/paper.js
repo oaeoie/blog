@@ -13,6 +13,34 @@
   var tbtn = document.getElementById('theme-btn');
   if (tbtn) tbtn.addEventListener('click', toggleTheme);
 
+  /* ---------- 전광판 ---------- */
+  /* data/marquee.yaml 목록에서 매번 다른 문구를 뽑는다. 새로고침·페이지 이동마다 바뀐다. */
+  function rollMarquee() {
+    var box = document.querySelector('.ticker');
+    var data = document.getElementById('marquee-data');
+    if (!box || !data) return;
+    var list;
+    try { list = JSON.parse(data.textContent); } catch (e) { return; }
+    if (!list || !list.length) return;
+    var span = box.querySelector('span');
+    if (!span) return;
+
+    var pick = Math.floor(Math.random() * list.length);
+    if (list.length > 1) {
+      try {
+        var n = (parseInt(sessionStorage.getItem('paper:marqueeN') || '0', 10) || 0) + 1;
+        sessionStorage.setItem('paper:marqueeN', String(n));
+        // 2번째마다 갈아끼운다 — 같은 문구가 연달아 뜨면 랜덤이 아닌 것처럼 보인다
+        if (n % 2 === 0) {
+          var last = parseInt(sessionStorage.getItem('paper:marqueeIdx') || '-1', 10);
+          if (pick === last) pick = (pick + 1) % list.length;
+        }
+      } catch (e) {}
+      try { sessionStorage.setItem('paper:marqueeIdx', String(pick)); } catch (e) {}
+    }
+    span.textContent = ' ' + list[pick] + ' ';
+  }
+
   /* ---------- 목차 만들기 ---------- */
   function buildToc() {
     var nav = document.getElementById('toc-inline-nav');
@@ -71,6 +99,8 @@
       a.rel = 'noopener';
     }
   });
+
+  rollMarquee();
 
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', buildToc);
