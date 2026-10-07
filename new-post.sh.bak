@@ -1,0 +1,28 @@
+#!/usr/bin/env bash
+# 새 글 쓰기 — 파일을 만들고 에디터로 연다.
+#   ./new-post.sh "글 제목" [슬러그]
+set -e
+cd "$(dirname "$0")"
+
+HUGO="C:/Users/oaeoie/AppData/Local/hermes/tools/hugo.exe"
+
+if [ -z "$1" ]; then
+  echo "제목을 달라요.  예: ./new-post.sh \"오늘의 잡담\""
+  exit 1
+fi
+
+TITLE="$1"
+SLUG="${2:-}"
+
+if [ -n "$SLUG" ]; then
+  "$HUGO" new content "posts/$SLUG.md" --kind posts --title "$TITLE"
+else
+  # 제목을 슬러그로 (한글은 파일명 그대로 둔다)
+  SAFE=$(printf '%s' "$TITLE" | tr ' ' '-')
+  "$HUGO" new content "posts/$SAFE.md" --kind posts --title "$TITLE"
+fi
+
+echo
+echo "만들었다요. front matter 에서 draft: true 를 false 로 바꾸면 공개된다요."
+echo "미리보기:  $HUGO server -D"
+echo "배포:      git add -A && git commit -m \"새 글\" && git push"
