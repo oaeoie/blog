@@ -11,7 +11,7 @@
     </div>
 
     {{ if site.Params.showMarquee }}
-    {{ with site.Data.marquee }}
+    {{ with hugo.Data.marquee }}
     <script type="application/json" id="marquee-data">[{{ range $i, $m := . }}{{ if $i }},{{ end }}{{ $m | jsonify }}{{ end }}]</script>
     <div class="ticker" aria-hidden="true" data-count="{{ len . }}">
         <span>{{ index . 0 }}</span>

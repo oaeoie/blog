@@ -1,5 +1,4 @@
 baseURL = "https://oaeoie.github.io/blog/"
-languageCode = "ko"
 locale = "ko"
 defaultContentLanguage = "ko"
 title = "verbum"

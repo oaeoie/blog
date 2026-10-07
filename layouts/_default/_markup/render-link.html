@@ -1,0 +1,7 @@
+{{- /* 본문 링크: 바깥 주소면 새 창 + noopener/noreferrer 를 빌드 시점에 박는다.
+       (JS 로 나중에 붙이면 스크립트가 꺼졌을 때 그냥 같은 창에서 열린다) */ -}}
+{{- $u := .Destination -}}
+{{- $ext := or (hasPrefix $u "http://") (hasPrefix $u "https://") -}}
+<a href="{{ $u | safeURL }}"
+   {{- if $ext }} target="_blank" rel="noopener noreferrer"{{ end }}
+   {{- with .Title }} title="{{ . }}"{{ end }}>{{ .Text }}</a>
